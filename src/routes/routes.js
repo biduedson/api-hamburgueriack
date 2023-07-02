@@ -4,6 +4,7 @@ const { userRegister, login } = require('../controllers/users')
 const { hamburguerPost, hamburguersDelete, hamburguerPatch } = require('../middlewares/hamburguerMiddlewares')
 const { bebidasPost, bebidasDelete, bebidasPatch } = require('../middlewares/bebidasMiddleware')
 const { combosPost, combosDelete, combosPatch } = require('../middlewares/combosMiddlewares')
+const { hamburguerList, combosList, bebidasList } = require('../controllers/getItens')
 
 
 const routes = express()
@@ -11,10 +12,12 @@ const routes = express()
 routes.post('/register', userRegister)
 routes.post('/login', login)
 
+routes.get('/hamburguers', hamburguerList)
+routes.get('/bebidas', bebidasList)
+routes.get('/combos', combosList)
+
 routes.use(userValidation)
-routes.get('/hamburguers')
-routes.get('/bebidas')
-routes.get('/combos')
+
 
 routes.post('/hamburguers', hamburguerPost)
 routes.post('/bebidas', bebidasPost)

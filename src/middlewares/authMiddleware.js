@@ -17,8 +17,9 @@ const userValidation = async (req, res, next) => {
         )
 
         if (rowCount < 1) return httpResponse.unauthorized(res)
+        next()
     } catch (err) {
-
+        return httpResponse.unauthorized(res)
     }
 }
 

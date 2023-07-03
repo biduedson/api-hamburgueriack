@@ -13,6 +13,18 @@ const httpResponse = {
 
     ok: (res, data) => {
         res.status(200).json(data)
+    },
+
+    created: (res, newIten) => {
+        res.status(201).json(newIten)
+    },
+
+    noContent: (res, message) => {
+        res.status(204).send()
+    },
+
+    notFound: (res, message) => {
+        res.status(404).json({ mensagem: message })
     }
 
 }

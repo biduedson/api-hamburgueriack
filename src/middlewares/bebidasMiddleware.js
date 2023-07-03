@@ -1,9 +1,9 @@
 const httpResponse = require('../helpers/httpResponse')
 
 function bebidasPost(req, res, next) {
-    const { hamburguer_name, description, preco } = req.body
+    const { name, description, preco } = req.body
 
-    if (!hamburguer_name) return httpResponse.badRequest(res, 'Campo nome  não pode estar vazio')
+    if (!name) return httpResponse.badRequest(res, 'Campo nome  não pode estar vazio')
 
     if (!description) return httpResponse.badRequest(res, 'Campo descrição  não pode estar vazio')
 
@@ -14,9 +14,9 @@ function bebidasPost(req, res, next) {
 }
 
 function bebidasPatch(req, res, next) {
-    const { id, hamburguer_name, description, preco } = req.body
+    const { id, name, description, preco } = req.body
 
-    if (!hamburguer_name &&
+    if (!name &&
         !description &&
         !preco &&
         !image) return httpResponse.badRequest(res, 'Ao menos um campo tem que estar preenchido.')

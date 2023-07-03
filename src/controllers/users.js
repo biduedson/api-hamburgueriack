@@ -18,7 +18,7 @@ const userRegister = async (req, res) => {
         res.status(201).json(newUser.rows[0])
 
     } catch (err) {
-        httpResponse.internalServerWError(res)
+        httpResponse.internalServerError(res)
     }
 }
 

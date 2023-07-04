@@ -1,12 +1,10 @@
 const express = require('express')
 const userValidation = require('../middlewares/authMiddleware')
 const { userRegister, login } = require('../controllers/users')
-const { hamburguerPost, hamburguersDelete, hamburguerPatch } = require('../middlewares/hamburguerMiddlewares')
-const { bebidasPost, bebidasDelete, bebidasPatch } = require('../middlewares/bebidasMiddleware')
-const { combosPost, combosDelete, combosPatch } = require('../middlewares/combosMiddlewares')
 const { hamburguerList, combosList, bebidasList } = require('../controllers/getItens')
 const postMiddlewares = require('../middlewares/postMiddlewares')
-const patchMiddleware = require('../middlewares/patchMiddleware')
+const updateMiddleware = require('../middlewares/updateMiddleware')
+const { updateHamburguer, updateBebidas, updateCombos } = require('../controllers/update')
 const { newHamburguer, newBebida, newCombo } = require('../controllers/create')
 const deleteMiddlewares = require('../middlewares/deleteMiddleware')
 const { deleteHamburguer, deleteBebida, deleteCombo } = require('../controllers/delete')
@@ -32,9 +30,9 @@ routes.delete('/hamburguers/:id', deleteMiddlewares, deleteHamburguer)
 routes.delete('/bebidas/:id', deleteMiddlewares, deleteBebida)
 routes.delete('/combos/:id', deleteMiddlewares, deleteCombo)
 
-routes.patch('/hamburguers/:id', patchMiddleware)
-routes.patch('/bebidas/:id', patchMiddleware)
-routes.patch('/combos/:id', patchMiddleware)
+routes.patch('/hamburguers', updateMiddleware, updateHamburguer)
+routes.patch('/bebidas', updateMiddleware, updateBebidas)
+routes.patch('/combos', updateMiddleware, updateCombos)
 
 
 module.exports = routes

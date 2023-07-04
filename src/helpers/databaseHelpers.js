@@ -1,9 +1,9 @@
 const pool = require('../models/database')
-const httpResponse = require('./httpResponse')
 
 const createItem = async (item, tableName) => {
 
     try {
+
         const { rows } = await pool.query(
             `INSERT INTO ${tableName} (name, description, preco, image )
         VALUES ($1, $2, $3, $4) RETURNING *`,
@@ -19,18 +19,15 @@ const createItem = async (item, tableName) => {
 
 
 
-const updateItem = async (req, res) => {
-    const { name, description, preco, image } = req.body
-
+const updateItem = async (item, tableName) => {
     try {
-        const { rows } = await pool.query(
-            `INSERT INTO bebidas (name, description, preco, image )
-        VALUES ($1, $2, $3, $4) RETURNING *`,
-            [hamburguer_name, description, preco, image]
+        await pool.query(
+            `UPDATE ${tableName} set 
+            name = $1, description = $2, preco = $3, image = $4 WHERE id = $5`,
+            [item.name, item.description, item.preco, item.image, item.id]
         )
-        return httpResponse.created(res, 'Item inserido com sucesso.', rows)
     } catch (err) {
-        httpResponse.internalServerError(res)
+        throw err
     }
 }
 
@@ -54,9 +51,21 @@ const selectItem = async (id, tableName) => {
 
 }
 
+const updateValues = (item, itemUpdated) => {
+    return {
+        id: item.id,
+        name: item.name || itemUpdated.name,
+        description: item.description || itemUpdated.description,
+        preco: item.preco || itemUpdated.preco,
+        image: item.image || itemUpdated.image,
+    }
+
+}
+
 module.exports = {
     createItem,
     updateItem,
     deleteItem,
-    selectItem
+    selectItem,
+    updateValues
 }

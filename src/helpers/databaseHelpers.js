@@ -17,8 +17,6 @@ const createItem = async (item, tableName) => {
 
 }
 
-
-
 const updateItem = async (item, tableName) => {
     try {
         await pool.query(
@@ -40,7 +38,6 @@ const deleteItem = async (id, tableName) => {
 
 }
 
-
 const selectItem = async (id, tableName) => {
     try {
         const { rows } = await pool.query(`SELECT * FROM ${tableName} WHERE id = $1`, [id])
@@ -49,6 +46,15 @@ const selectItem = async (id, tableName) => {
         throw err
     }
 
+}
+
+const selectAllItem = async (tableName) => {
+    try {
+        const { rows } = await pool.query(`SELECT * FROM ${tableName}`)
+        return rows
+    } catch (err) {
+        throw err
+    }
 }
 
 const updateValues = (item, itemUpdated) => {
@@ -67,5 +73,6 @@ module.exports = {
     updateItem,
     deleteItem,
     selectItem,
+    selectAllItem,
     updateValues
 }

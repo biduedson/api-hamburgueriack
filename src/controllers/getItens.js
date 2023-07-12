@@ -1,40 +1,32 @@
 const pool = require('../models/database')
 const httpResponse = require('../helpers/httpResponse')
+const { selectAllItem } = require('../helpers/databaseHelpers')
 
 async function hamburguerList(req, res) {
+
     try {
-        const client = await pool.connect();
-        const result = await client.query('SELECT * FROM hamburguers')
-        const data = result.rows;
-        client.release()
+        const data = await selectAllItem('hamburguers');
         return httpResponse.ok(res, data)
     } catch (err) {
-        return httpResponse.internalServerError(res, 'Erro ao consultar os dados')
+        return httpResponse.internalServerError(res)
     }
 }
 
 async function bebidasList(req, res) {
     try {
-        const client = await pool.connect();
-        const result = await client.query('SELECT * FROM bebidas')
-        const data = result.rows;
-        client.release()
-        httpResponse.ok(res, data)
+        const data = await selectAllItem('bebidas');
+        return httpResponse.ok(res, data)
     } catch (err) {
-        return httpResponse.internalServerError(res, 'Erro ao consultar os dados')
-
+        return httpResponse.internalServerError(res)
     }
 }
 
 async function combosList(req, res) {
     try {
-        const client = await pool.connect();
-        const result = await client.query('SELECT * FROM combos');
-        const data = result.rows;
-        client.release()
-        httpResponse.ok(res, data)
+        const data = await selectAllItem('combos');
+        return httpResponse.ok(res, data)
     } catch (err) {
-        return httpResponse.internalServerError(res, 'Erro ao consultar os dados')
+        return httpResponse.internalServerError(res)
     }
 }
 
